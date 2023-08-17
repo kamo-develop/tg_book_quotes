@@ -50,7 +50,7 @@ def register_all_handlers(dp):
 
 async def main():
     logging.basicConfig(
-        handlers=[RotatingFileHandler('logs/debug.log', maxBytes=1000000, backupCount=10)],
+        handlers=[RotatingFileHandler('logs/i.log', maxBytes=1000000, backupCount=10)],
         level=logging.INFO,
         format=u'%(name)s %(funcName)s :%(lineno)d [%(asctime)s] #%(levelname)s - %(message)s',
     )
