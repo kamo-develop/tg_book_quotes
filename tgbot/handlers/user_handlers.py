@@ -10,6 +10,7 @@ from aiogram.utils.exceptions import InvalidHTTPUrlContent, BadRequest
 from tgbot.config import Config
 from tgbot.keyboards.inline import get_quote_menu_keyboard, quote_menu_callback, get_genres_choice_keyboard, \
     genres_choice_menu_callback, get_next_quote_menu_keyboard, get_first_start_keyboard, first_start_menu_callback
+from tgbot.misc.admin_notfication import AdminNotification
 from tgbot.misc.log_settings import RequestIdAdapter
 from tgbot.misc.messages import Messages
 from tgbot.models import User
@@ -59,6 +60,7 @@ async def start_handler(message: Message, user: User, is_new_user: bool, state: 
 
     if is_new_user:
         logger.info(f"New user {user}", id=request_id)
+        await AdminNotification.new_user(user, message.bot)
 
         greeting_photo = await FileService.get_image('books_for_greeting.jpg', message.bot['config'])
         await message.answer_photo(
