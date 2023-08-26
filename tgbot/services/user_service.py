@@ -15,6 +15,10 @@ class UserService:
     @staticmethod
     async def get_user_by_tg_id(tg_id) -> User:
         return await User.filter(tg_id=tg_id).first()
+    
+    @staticmethod
+    async def get_user_by_id(user_id) -> User:
+        return await User.filter(user_id=user_id).first()
 
     @staticmethod
     async def create_user(user: types.User):

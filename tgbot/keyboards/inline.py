@@ -60,6 +60,22 @@ def get_first_start_keyboard():
     )
 
 
+thanks_menu_callback = CallbackData('thanks')
+
+
+def get_thanks_keyboard():
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text=Messages.thanks_button,
+                    callback_data=thanks_menu_callback.new()
+                )
+            ]
+        ]
+    )
+
+
 genres_choice_menu_callback = CallbackData('genres_choice', 'action', 'genre_id', 'is_start')
 
 

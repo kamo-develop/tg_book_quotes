@@ -10,7 +10,7 @@ logger = RequestIdAdapter(logger, {"id": None})
 
 class Messages:
 
-    bot_name = '📚 Интересные цитаты из книг 📚'
+    bot_name = '📚 Интересные цитаты из книг'
     next_quote_text = '💬 Следующая цитата'
     choice_genre_text = '📚 Выбор жанров'
     bot_help_text = '🆘 Помощь по боту'
@@ -18,6 +18,8 @@ class Messages:
     throttling_text = 'Не так часто! 🙃'
 
     first_button_forward = "💬 ВПЕРЁД!"
+    thanks_button = "🙏 СПАСИБО!"
+    thanks_reaction = "☺️😊👍"
 
     any_message_answer = '👆👆👆\nНажмите на нужную Вам кнопку в меню выше, чтобы продолжить 😊'
 
@@ -74,3 +76,9 @@ class Messages:
         # return f'Мы учтём в будущем Ваш {rating_symbol} для рекомендаций.\nНо это не точно 🤭\n\n' \
         #        f'{Messages.next_quote_text} - /next'
         return '☺️😊👆' if is_like else '🤔😌👆'
+
+    @staticmethod
+    def get_leader_message(full_name):
+        return (f"😊 {full_name}, Вам, как самому активному пользователю нашего бота, вручается <b>золотая медаль за любовь к книгам</b>!\n\n"
+                f"🎁 А в качестве бонуса даём ранний доступ к новому функционалу. Теперь бот будет сам регулярно отправлять Вам лучшие цитаты!\n\n"
+                f"☺️ С любовью, команда бота \n{Messages.bot_name}!\n@BookQuoteSupport")

@@ -10,7 +10,8 @@ from aiogram.utils.exceptions import InvalidHTTPUrlContent, BadRequest
 
 from tgbot.config import Config
 from tgbot.keyboards.inline import get_quote_menu_keyboard, quote_menu_callback, get_genres_choice_keyboard, \
-    genres_choice_menu_callback, get_next_quote_menu_keyboard, get_first_start_keyboard, first_start_menu_callback
+    genres_choice_menu_callback, get_next_quote_menu_keyboard, get_first_start_keyboard, first_start_menu_callback, \
+    thanks_menu_callback
 from tgbot.misc.admin_notfication import AdminNotification
 from tgbot.misc.log_settings import RequestIdAdapter
 from tgbot.misc.messages import Messages
@@ -85,6 +86,16 @@ async def first_genres_choice_handler(call: CallbackQuery, user: User, request_i
     await call.message.edit_reply_markup()
 
 
+async def thanks_button_handler(call: CallbackQuery, user: User, request_id: str):
+    await call.answer()
+    logger.info(f'THANKS BUTTON from {user}', id=request_id)
+
+    await call.message.answer(
+        text=Messages.thanks_reaction
+    )
+    await call.message.edit_reply_markup()
+
+
 # меню выбора жанров
 async def genres_choice_handler(message: Message, user: User, request_id: str):
     logger.info(f'Genres choice menu for {user}', id=request_id)
@@ -143,6 +154,7 @@ async def genres_choice_callback_handler(call: CallbackQuery, callback_data: dic
 def register_private_handlers(dp: Dispatcher):
     dp.register_message_handler(start_handler, ChatTypeFilter(ChatType.PRIVATE), commands=["start"])
     dp.register_callback_query_handler(first_genres_choice_handler, first_start_menu_callback.filter())
+    dp.register_callback_query_handler(thanks_button_handler, thanks_menu_callback.filter())
     dp.register_message_handler(next_handler, ChatTypeFilter(ChatType.PRIVATE), commands=["next"])
     dp.register_message_handler(genres_choice_handler, ChatTypeFilter(ChatType.PRIVATE), commands=["genres"])
 
