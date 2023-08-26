@@ -139,6 +139,11 @@ class QuoteService:
         return user_quote.id
 
     @staticmethod
+    async def save_user_auto_sending_quote(quote_id: int, user_id: int) -> int:
+        user_quote = await UserQuote.create(user_id=user_id, quote_id=quote_id, auto_sending=True)
+        return user_quote.id
+
+    @staticmethod
     async def set_like(user_quote_id: int, is_like: bool):
         user_quote = await UserQuote.get(id=user_quote_id)
         if is_like is True:

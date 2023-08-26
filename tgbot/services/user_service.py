@@ -2,6 +2,7 @@ import datetime
 import logging
 
 from aiogram import types
+from tortoise import Tortoise
 
 from tgbot.misc.log_settings import RequestIdAdapter
 from tgbot.models import User, Genre
@@ -58,4 +59,18 @@ class UserService:
             logger.info(f'{user} remove genre {user_genre}', id=request_id)
             await user.genres.remove(user_genre)
 
+    @staticmethod
+    async def get_long_time_ago_users() -> list:
+        query = """
+            SELECT tg_id
+            FROM user_quote
+            JOIN user_tg USING(user_id)
+            GROUP BY tg_id
+            HAVING MAX(created) + interval '12 hours' < current_timestamp
+            ORDER BY MAX(created) ASC
+            LIMIT 5
+        """
 
+        connect = Tortoise.get_connection('default')
+        users_tg_id = await connect.execute_query_dict(query)
+        return [user.get('tg_id') for user in users_tg_id]

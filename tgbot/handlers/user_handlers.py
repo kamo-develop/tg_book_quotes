@@ -4,7 +4,8 @@ import logging
 from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import ChatTypeFilter, CommandStart
-from aiogram.types import Message, ChatType, CallbackQuery, InputFile
+from aiogram.types import Message, ChatType, CallbackQuery, InputFile, Update
+from aiogram.utils import exceptions
 from aiogram.utils.exceptions import InvalidHTTPUrlContent, BadRequest
 
 from tgbot.config import Config

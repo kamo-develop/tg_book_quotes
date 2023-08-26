@@ -11,6 +11,7 @@ class ACLMiddleware(BaseMiddleware):
     # Берёт пользователя из базы или создаёт нового и ставит флаг нового запуска
     @staticmethod
     async def setup_current_user(data: dict, user: types.User):
+        # todo: отслеживать изменение имени и логина пользователя и обновлять данные в базе
         current_user = await UserService.get_user_by_tg_id(user.id)
         if not current_user:
             current_user = await UserService.create_user(user)

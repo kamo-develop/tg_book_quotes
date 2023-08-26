@@ -15,6 +15,7 @@ class UserQuote(Model):
         related_name='user_quote'
     )
 
+    auto_sending = fields.BooleanField(default=False)
     created = fields.DatetimeField(auto_now_add=True)
     like = fields.BooleanField(default=False)
     dislike = fields.BooleanField(default=False)
