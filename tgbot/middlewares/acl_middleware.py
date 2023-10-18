@@ -20,6 +20,10 @@ class ACLMiddleware(BaseMiddleware):
             data["is_new_user"] = False
         if current_user.username is None and user.username is not None:
             current_user = await UserService.set_username(user=current_user, new_username=user.username)
+        # if current_user.username != user.username:
+        #     current_user = await UserService.set_username(user=current_user, new_username=user.username)
+        # if current_user.full_name != user.full_name:
+        #     current_user = await UserService.set_fullname(user=current_user, new_fullname=user.full_name)
 
         data["user"] = current_user
 

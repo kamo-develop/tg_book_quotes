@@ -30,6 +30,11 @@ class UserService:
         return await user.save()
 
     @staticmethod
+    async def set_fullname(user: User, new_fullname: str):
+        user.full_name = new_fullname
+        return await user.save()
+
+    @staticmethod
     async def get_genres_preferences_for_menu(user: User):
         # Список жанров для выбора
         genres = await Genre.filter(is_menu=True).order_by('ordinal_number').values('genre_id', 'title', 'alias')
